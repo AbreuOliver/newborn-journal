@@ -73,113 +73,6 @@ class App extends Component {
 					body: " 'Work Sans', sans-serif"
 				}
 			})}>
-				{/* <Box border="2px solid blue" textAlign="center" fontSize="xl">
-					<Grid
-						minH="100vh"
-						gap={3}
-						border="2px solid orange"
-					>
-						<ColorModeSwitcher justifySelf="flex-end" />
-						<VStack
-							height="300px"
-							justifyContent="center"
-						>
-							<HStack>
-								<VStack
-									justifyContent="center"
-									alignItems="flex-start"
-									textAlign="left"
-									paddingLeft="30px"
-									width="300px"
-									height="300px"
-									backgroundColor="#303297"
-								>
-									<Text color="#fff">
-										Total <br/>Entries
-									</Text>
-									<Text color="#fff" fontSize="8xl" fontWeight="bold">
-										{this.state.data.length}
-									</Text>
-								</VStack>
-								<VStack
-									justifyContent="center"
-									alignItems="flex-start"
-									paddingLeft="30px"
-									textAlign="left"
-									width="300px"
-									height="300px"
-									backgroundColor="#ff4c4f"
-								>
-									<Text width="20ch">
-										Diapers Changed Lifetime
-									</Text>
-									<Text fontSize="8xl" fontWeight="bold">
-										{this.state.data.filter(x => x.recordType.includes("Diaper")).length}
-									</Text>
-								</VStack>
-								<VStack
-									justifyContent="center"
-									alignItems="flex-start"
-									paddingLeft="30px"
-									textAlign="left"
-									width="300px"
-									height="300px"
-									backgroundColor="#2b79ff"
-								>
-									<Text width="15ch">
-										Diapers Changed Today
-									</Text>
-									<Text fontSize="8xl" fontWeight="bold">
-										{this.state.data
-											.filter(x => x.recordType.includes("Diaper"))
-											.filter(x => x.recordStartTime.includes(today))
-											.length
-										}
-									</Text>
-								</VStack>
-								<VStack
-									justifyContent="center"
-									alignItems="flex-start"
-									paddingLeft="30px"
-									textAlign="left"
-									width="300px"
-									height="300px"
-									backgroundColor="#29272a"
-								>
-									<Text color="#fff" width="15ch">
-										Last Diaper Change:
-									</Text>
-									<Text color="#fff" fontSize="8xl" fontWeight="bold">
-
-									</Text>
-								</VStack>
-							</HStack>
-						</VStack>
-						<VStack>
-							<HStack>
-									<VStack
-										justifyContent="center"
-										alignItems="flex-start"
-										textAlign="left"
-										paddingLeft="30px"
-										width="300px"
-										height="300px"
-										backgroundColor="#f95b58"
-									>
-										<Text>
-											Feedings Total <br/> Lifetime
-										</Text>
-										<Text fontSize="8xl" fontWeight="bold">
-											{ this.state.data
-												.filter(x => x.recordType.includes("feeding"))
-												.length
-											}
-										</Text>
-									</VStack>
-								</HStack>
-						</VStack>
-					</Grid>
-				</Box> */}
 			<Box textAlign="center" fontSize="xl">
 				<Grid minH="100vh" >
 				<ColorModeSwitcher justifySelf="flex-end" />
@@ -198,12 +91,13 @@ class App extends Component {
 						color="#fff"
 						height="300px"
 						backgroundColor="#303297"
+						marginBottom="20px"
 					>
 						<Text fontSize="2xl" >
 							Total Feedings <br/> (Lifetime)
 						</Text>
 						<HStack>
-							<Text minWidth="3ch" fontSize="8xl" fontWeight="bold" >
+							<Text minWidth="2ch" fontSize="8xl" fontWeight="bold" >
 								{ this.state.data
 									.filter(x => x.recordType.includes("feeding"))
 									.length
@@ -222,12 +116,13 @@ class App extends Component {
 						paddingLeft="30px"
 						height="300px"
 						backgroundColor="#f95b58"
+						marginBottom="20px"
 					>
 						<Text fontSize="2xl" >
 							Total Diapers Changed <br/> (Lifetime)
 						</Text>
 						<HStack>
-							<Text minWidth="3ch"  fontSize="8xl" fontWeight="bold" >
+							<Text minWidth="2ch"  fontSize="8xl" fontWeight="bold" >
 								{ this.state.data
 									.filter(x => x.recordType.includes("iaper"))
 									.length
@@ -246,12 +141,13 @@ class App extends Component {
 						paddingLeft="30px"
 						height="300px"
 						backgroundColor="#2b79ff"
+						marginBottom="20px"
 					>
 						<Text fontSize="2xl" >
 							Total Wet Diapers <br/>Changed (Lifetime)
 						</Text>
 						<HStack>
-							<Text minWidth="3ch" fontSize="8xl" fontWeight="bold">
+							<Text minWidth="2ch" fontSize="8xl" fontWeight="bold">
 								{ this.state.data
 									.filter(x => x.recordType.includes("iaper"))
 									.filter(x => x.recordDetail.includes("et"))
@@ -272,12 +168,13 @@ class App extends Component {
 						color="#fff"
 						height="300px"
 						backgroundColor="#29272a"
+						marginBottom="20px"
 					>
 						<Text fontSize="2xl" >
 							Total Poopy Diapers <br/>Changed (Lifetime)
 						</Text>
 						<HStack>
-							<Text minWidth="3ch" fontSize="8xl" fontWeight="bold">
+							<Text minWidth="2ch" fontSize="8xl" fontWeight="bold">
 								{ this.state.data
 									.filter(x => x.recordType.includes("iaper"))
 									.filter(x => x.recordDetail.includes("oop"))
@@ -298,12 +195,13 @@ class App extends Component {
 						color="#fff"
 						height="300px"
 						backgroundColor="#303297"
+						marginBottom="20px"
 					>
 						<Text fontSize="2xl" >
 							Total Diapers Changed <br/> (Today)
 						</Text>
 						<HStack>
-							<Text minWidth="3ch" fontSize="8xl" fontWeight="bold" >
+							<Text minWidth="2ch" fontSize="8xl" fontWeight="bold" >
 							{this.state.data
 								.filter(x => x.recordType.includes("iaper"))
 								.filter(x => x.recordStartTime.includes(today))
@@ -324,12 +222,13 @@ class App extends Component {
 						color="#000"
 						height="300px"
 						backgroundColor="#8cffa0"
+						marginBottom="20px"
 					>
 						<Text fontSize="2xl" >
 							Total Entries <br/>(Lifetime)
 						</Text>
 						<HStack>
-							<Text minWidth="3ch" fontSize="8xl" fontWeight="bold">
+							<Text minWidth="2ch" fontSize="8xl" fontWeight="bold">
 								{ this.state.data
 									.length
 								}
