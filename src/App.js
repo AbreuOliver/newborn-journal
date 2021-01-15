@@ -3,23 +3,26 @@ import {
 	ChakraProvider,
 	Box,
 	Text,
-	Link,
-	VStack,
-	Code,
 	Grid,
-	theme,
 	HStack,
-	Flex,
 	extendTheme,
 	SimpleGrid
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
 
 import Firebase from "firebase";
 import config from "./config.js";
 
 import moment from "moment";
+
+import babyHappy from "./assets/babyHappy.png";
+import bottle from "./assets/bottle.png";
+import calendar from "./assets/calendar.png";
+import diaper from "./assets/diaper.png";
+import diaperPoopy from "./assets/diaperPoopy.png";
+import diaperWet from "./assets/diaperWet.png";
+import meal from "./assets/meal.png";
+
 
 const today = moment().format("MMM DD, YYYY");
 
@@ -56,11 +59,13 @@ class App extends Component {
 		// console.log("DIAPERS:", this.state.data.filter(x => x.recordType.includes("Diaper")))
 		console.log(today)
 		console.log("TODAY DIAPERS:", this.state.data.filter(x => x.recordType.includes("Diaper")).filter(x => x.recordStartTime.includes(today)))
-		console.log("OBJECT", this.state.data
-							.filter(x => x.recordType.includes("Diaper"))
-							.filter(x => x.recordStartTime.includes(today))
-							.slice(-1)[0]
-							// .recordStartTime
+		console.log("OBJECT",
+						// this.state.data
+						// 	.filter(x => x.recordType.includes("Diaper"))
+						// 	.filter(x => x.recordStartTime.includes(today))
+						// 	.slice(-1)[0]
+						this.state.data[this.state.data.length-1]
+						// [Object.recordType]
 		)
 		return (
 			<ChakraProvider theme={extendTheme({
@@ -176,17 +181,12 @@ class App extends Component {
 					</Grid>
 				</Box> */}
 			<Box textAlign="center" fontSize="xl">
-				<Grid
-						minH="100vh"
-						// spacingY="5px"
-						// gap={3}
-						// border="2px solid orange"
-						// backgroundColor="#8cffa0"
-				>
+				<Grid minH="100vh" >
 				<ColorModeSwitcher justifySelf="flex-end" />
 				<Text fontWeight="900" fontSize="5xl" >Baby Journal</Text>
 				<SimpleGrid
-					columns={[ 1, 2, 3]} spacing="5px"
+					columns={[ 1, 2]} spacingY="0px" spacingX="20px"
+					margin="0 20px"
 				>
 					<Box
 						display="flex"
@@ -202,12 +202,15 @@ class App extends Component {
 						<Text fontSize="2xl" >
 							Total Feedings <br/> (Lifetime)
 						</Text>
-						<Text fontSize="8xl" fontWeight="bold" >
-							{ this.state.data
-								.filter(x => x.recordType.includes("feeding"))
-								.length
-							}
-						</Text>
+						<HStack>
+							<Text minWidth="3ch" fontSize="8xl" fontWeight="bold" >
+								{ this.state.data
+									.filter(x => x.recordType.includes("feeding"))
+									.length
+								}
+							</Text>
+							<img src={bottle} alt="" style={{opacity: 0.5, height: "100px"}}/>
+						</HStack>
 						<Text fontSize="md">Last Feeding: </Text>
 					</Box>
 					<Box
@@ -217,19 +220,21 @@ class App extends Component {
 						alignItems="flex-start"
 						textAlign="left"
 						paddingLeft="30px"
-						// color="#fff"
 						height="300px"
 						backgroundColor="#f95b58"
 					>
 						<Text fontSize="2xl" >
 							Total Diapers Changed <br/> (Lifetime)
 						</Text>
-						<Text fontSize="8xl" fontWeight="bold" >
-							{ this.state.data
-								.filter(x => x.recordType.includes("iaper"))
-								.length
-							}
-						</Text>
+						<HStack>
+							<Text minWidth="3ch"  fontSize="8xl" fontWeight="bold" >
+								{ this.state.data
+									.filter(x => x.recordType.includes("iaper"))
+									.length
+								}
+							</Text>
+							<img src={diaper} alt="" style={{opacity: 0.5, height: "100px"}}/>
+						</HStack>
 						<Text fontSize="md">Last Diaper Change: </Text>
 					</Box>
 					<Box
@@ -239,20 +244,22 @@ class App extends Component {
 						alignItems="flex-start"
 						textAlign="left"
 						paddingLeft="30px"
-						// color="#fff"
 						height="300px"
 						backgroundColor="#2b79ff"
 					>
 						<Text fontSize="2xl" >
 							Total Wet Diapers <br/>Changed (Lifetime)
 						</Text>
-						<Text fontSize="8xl" fontWeight="bold">
-							{ this.state.data
-								.filter(x => x.recordType.includes("iaper"))
-								.filter(x => x.recordDetail.includes("et"))
-								.length
-							}
-						</Text>
+						<HStack>
+							<Text minWidth="3ch" fontSize="8xl" fontWeight="bold">
+								{ this.state.data
+									.filter(x => x.recordType.includes("iaper"))
+									.filter(x => x.recordDetail.includes("et"))
+									.length
+								}
+							</Text>
+							<img src={diaperWet} alt="" style={{opacity: 0.5, height: "100px"}}/>
+						</HStack>
 						<Text fontSize="md">Last Wet Diaper: </Text>
 					</Box>
 					<Box
@@ -269,14 +276,67 @@ class App extends Component {
 						<Text fontSize="2xl" >
 							Total Poopy Diapers <br/>Changed (Lifetime)
 						</Text>
-						<Text fontSize="8xl" fontWeight="bold">
-							{ this.state.data
+						<HStack>
+							<Text minWidth="3ch" fontSize="8xl" fontWeight="bold">
+								{ this.state.data
+									.filter(x => x.recordType.includes("iaper"))
+									.filter(x => x.recordDetail.includes("oop"))
+									.length
+								}
+							</Text>
+							<img src={diaperPoopy} alt="" style={{opacity: 0.5, height: "100px"}}/>
+						</HStack>
+						<Text fontSize="md">Last Poopy Diaper: </Text>
+					</Box>
+					<Box
+						display="flex"
+						flexDirection="column"
+						justifyContent="center"
+						alignItems="flex-start"
+						textAlign="left"
+						paddingLeft="30px"
+						color="#fff"
+						height="300px"
+						backgroundColor="#303297"
+					>
+						<Text fontSize="2xl" >
+							Total Diapers Changed <br/> (Today)
+						</Text>
+						<HStack>
+							<Text minWidth="3ch" fontSize="8xl" fontWeight="bold" >
+							{this.state.data
 								.filter(x => x.recordType.includes("iaper"))
-								.filter(x => x.recordDetail.includes("oop"))
+								.filter(x => x.recordStartTime.includes(today))
 								.length
 							}
+							</Text>
+							<img src={babyHappy} alt="" style={{opacity: 0.5, height: "100px"}}/>
+						</HStack>
+						<Text fontSize="md">Most Active Day: </Text>
+					</Box>
+					<Box
+						display="flex"
+						flexDirection="column"
+						justifyContent="center"
+						alignItems="flex-start"
+						textAlign="left"
+						paddingLeft="30px"
+						color="#000"
+						height="300px"
+						backgroundColor="#8cffa0"
+					>
+						<Text fontSize="2xl" >
+							Total Entries <br/>(Lifetime)
 						</Text>
-						<Text fontSize="md">Last Poopy Diaper: </Text>
+						<HStack>
+							<Text minWidth="3ch" fontSize="8xl" fontWeight="bold">
+								{ this.state.data
+									.length
+								}
+							</Text>
+							<img src={calendar} alt="" style={{opacity: 0.5, height: "100px"}}/>
+						</HStack>
+						<Text fontSize="md">Last Entry: {this.state.data.length-1[Object.recordType]}</Text>
 					</Box>
 				</SimpleGrid>
 				</Grid>
