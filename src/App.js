@@ -92,6 +92,7 @@ class App extends Component {
 						height="300px"
 						backgroundColor="#303297"
 						marginBottom="20px"
+						borderRadius="41.5px"
 					>
 						<Text fontSize="2xl" >
 							Total Feedings <br/> (Lifetime)
@@ -105,7 +106,7 @@ class App extends Component {
 							</Text>
 							<img src={bottle} alt="" style={{opacity: 0.5, height: "100px"}}/>
 						</HStack>
-						<Text fontSize="md">Last Feeding: </Text>
+						<Text fontSize="md">Total Minutes: </Text>
 					</Box>
 					<Box
 						display="flex"
@@ -117,6 +118,7 @@ class App extends Component {
 						height="300px"
 						backgroundColor="#f95b58"
 						marginBottom="20px"
+						borderRadius="41.5px"
 					>
 						<Text fontSize="2xl" >
 							Total Diapers Changed <br/> (Lifetime)
@@ -142,9 +144,10 @@ class App extends Component {
 						height="300px"
 						backgroundColor="#2b79ff"
 						marginBottom="20px"
+						borderRadius="41.5px"
 					>
 						<Text fontSize="2xl" >
-							Total Wet Diapers <br/>Changed (Lifetime)
+							Total Diapers with<br/>Pee (Lifetime)
 						</Text>
 						<HStack>
 							<Text minWidth="2ch" fontSize="8xl" fontWeight="bold">
@@ -169,9 +172,10 @@ class App extends Component {
 						height="300px"
 						backgroundColor="#29272a"
 						marginBottom="20px"
+						borderRadius="41.5px"
 					>
 						<Text fontSize="2xl" >
-							Total Poopy Diapers <br/>Changed (Lifetime)
+							Total Diapers with <br/>Poopy (Lifetime)
 						</Text>
 						<HStack>
 							<Text minWidth="2ch" fontSize="8xl" fontWeight="bold">
@@ -196,6 +200,7 @@ class App extends Component {
 						height="300px"
 						backgroundColor="#303297"
 						marginBottom="20px"
+						borderRadius="41.5px"
 					>
 						<Text fontSize="2xl" >
 							Total Diapers Changed <br/> (Today)
@@ -223,6 +228,7 @@ class App extends Component {
 						height="300px"
 						backgroundColor="#8cffa0"
 						marginBottom="20px"
+						borderRadius="41.5px"
 					>
 						<Text fontSize="2xl" >
 							Total Entries <br/>(Lifetime)
