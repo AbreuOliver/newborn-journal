@@ -198,7 +198,7 @@ class App extends Component {
 						paddingLeft="30px"
 						color="#fff"
 						height="300px"
-						backgroundColor="#303297"
+						backgroundColor="#7666b2"
 						marginBottom="20px"
 						borderRadius="41.5px"
 					>
@@ -216,6 +216,34 @@ class App extends Component {
 							<img src={babyHappy} alt="" style={{opacity: 0.5, height: "100px"}}/>
 						</HStack>
 						<Text fontSize="md">Most Active Day: </Text>
+					</Box>
+					<Box
+						display="flex"
+						flexDirection="column"
+						justifyContent="center"
+						alignItems="flex-start"
+						textAlign="left"
+						paddingLeft="30px"
+						color="#000"
+						height="300px"
+						backgroundColor="#ffd500"
+						marginBottom="20px"
+						borderRadius="41.5px"
+					>
+						<Text fontSize="2xl" >
+							Total Feedings <br/>(Today)
+						</Text>
+						<HStack>
+							<Text minWidth="2ch" fontSize="8xl" fontWeight="bold">
+								{ this.state.data
+									.filter(x => x.recordType.includes("eeding"))
+									.filter(x => x.recordStartTime.includes(today))
+									.length
+								}
+							</Text>
+							<img src={meal} alt="" style={{opacity: 0.5, height: "100px"}}/>
+						</HStack>
+						<Text fontSize="md">Last Feeding: </Text>
 					</Box>
 					<Box
 						display="flex"
