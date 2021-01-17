@@ -29,6 +29,7 @@ import axios from "axios";
 
 const today = moment().format("MMM DD, YYYY");
 const thisDay = moment().format("ddd, MMM DD")
+const time = moment().format("hh:mm A")
 
 // function App() {
 class App extends Component {
@@ -50,23 +51,6 @@ class App extends Component {
 	componentDidMount() {
 		this.getUserData();
 	};
-
-	// componentDidUpdate() {
-	// 	axios({
-	// 		method: "post",
-	// 		url: DATABASE_URL,
-	// 		newData: {
-	// 			id: "",
-	// 			inputDate: "",
-	// 			inputTime: "",
-	// 			recordDetail: "",
-	// 			recordDuration: "",
-	// 			recordStartTime: "",
-	// 			recordType: "",
-	// 		}
-	// 	})
-	// 	.then(response => this.setState({ data: response.newData })
-	// };
 
 	// FUNCTION TO GET INITIAL DATA FROM FIREBASE REALTIME DATABASE
 	getUserData = () => {
@@ -93,6 +77,14 @@ class App extends Component {
 		console.log("Last Entry:",
 						typeof lastEntry, lastEntry
 		)
+		// console.log("REDUCER",
+		// 		this.state.data
+		// 			.filter( x => x.recordType.includes("eeding"))
+		// 			.reduce((map, recordDuration) => ({
+		// 				...map,
+		// 				[recordDuration]: (map[recordDuration] || 0) + 1
+		// 		}), {})
+		// )
 		return (
 			<ChakraProvider theme={extendTheme({
 				fonts: {
@@ -102,14 +94,13 @@ class App extends Component {
 			<Box textAlign="center" fontSize="xl">
 				<Grid minH="100vh" >
 				<HStack marginTop="25px" marginBottom="15px" marginLeft="25px" marginRight="35px" justifyContent="space-between">
-					{/* <Text>Color Mode</Text> */}
 					<ColorModeSwitcher justifySelf="flex-end" />
 					<Button>Add New Entry</Button>
 				</HStack>
-				{/* <HStack>
-
-				</HStack> */}
-				<Text fontWeight="900" fontSize="5xl" marginBottom="15px">Baby Journal</Text>
+				<Text fontWeight="900" fontSize="5xl" marginBottom="15px">
+					Baby Journal <br></br>
+					{time}
+				</Text>
 				<SimpleGrid
 					columns={[ 1, 2]} spacingY="0px" spacingX="20px"
 					margin="0 20px"
@@ -126,6 +117,8 @@ class App extends Component {
 						backgroundColor="#303297"
 						marginBottom="20px"
 						borderRadius="41.5px"
+						paddingTop="25px"
+						paddingBottom="25px"
 					>
 						<Text fontSize="2xl" >
 							Total Feedings <br/> (Lifetime)
@@ -139,7 +132,16 @@ class App extends Component {
 							</Text>
 							<img src={bottle} alt="" style={{opacity: 0.5, height: "100px"}}/>
 						</HStack>
-						<Text fontSize="md">Total Minutes: </Text>
+						<Text fontSize="md">Total Minutes: &nbsp;
+							{/* {
+								this.state.data
+									.filter( x => x.recordType.includes("eeding"))
+									.reduce((map, recordDuration) => ({
+										...map,
+										[recordDuration]: (map[recordDuration] || 0) + 1
+									}), {})
+							} */}
+						</Text>
 					</Box>
 					<Box
 						display="flex"
@@ -152,6 +154,8 @@ class App extends Component {
 						backgroundColor="#f95b58"
 						marginBottom="20px"
 						borderRadius="41.5px"
+						paddingTop="25px"
+						paddingBottom="25px"
 					>
 						<Text fontSize="2xl" >
 							Total Diapers Changed <br/> (Lifetime)
@@ -193,6 +197,8 @@ class App extends Component {
 						backgroundColor="#2b79ff"
 						marginBottom="20px"
 						borderRadius="41.5px"
+						paddingTop="25px"
+						paddingBottom="25px"
 					>
 						<Text fontSize="2xl" >
 							Total Diapers with<br/>Pee (Lifetime)
@@ -238,6 +244,8 @@ class App extends Component {
 						backgroundColor="#29272a"
 						marginBottom="20px"
 						borderRadius="41.5px"
+						paddingTop="25px"
+						paddingBottom="25px"
 					>
 						<Text fontSize="2xl" >
 							Total Diapers with <br/>Poopy (Lifetime)
@@ -281,6 +289,8 @@ class App extends Component {
 						backgroundColor="#7666b2"
 						marginBottom="20px"
 						borderRadius="41.5px"
+						paddingTop="25px"
+						paddingBottom="25px"
 					>
 						<Text fontSize="2xl" >
 							Total Diapers Changed <br/> Today ({thisDay})
@@ -309,11 +319,13 @@ class App extends Component {
 						backgroundColor="#ffd500"
 						marginBottom="20px"
 						borderRadius="41.5px"
+						paddingTop="25px"
+						paddingBottom="25px"
 					>
-						<Text fontSize="2xl" >
+						<Text fontSize="2xl">
 							Total Feedings <br/>Today ({thisDay})
 						</Text>
-						<HStack>
+						<HStack height="100px">
 							<Text minWidth="2ch" fontSize="8xl" fontWeight="bold">
 								{ this.state.data
 									.filter(x => x.recordType.includes("eeding"))
@@ -332,7 +344,8 @@ class App extends Component {
 								return (
 									<div className="content" key={x.id}>
 										<div className="class">
-											{x.inputTime} (
+											{x.recordStartTime} <br></br>
+											(
 											{x.recordDetail} side, &nbsp;
 											{x.recordDuration} minutes)
 										</div>
@@ -353,11 +366,13 @@ class App extends Component {
 						backgroundColor="#8cffa0"
 						marginBottom="20px"
 						borderRadius="41.5px"
+						paddingTop="25px"
+						paddingBottom="25px"
 					>
 						<Text fontSize="2xl" >
 							Total Entries <br/>(Lifetime)
 						</Text>
-						<HStack>
+						<HStack height="100px">
 							<Text minWidth="2ch" fontSize="8xl" fontWeight="bold">
 								{ this.state.data
 									.length
@@ -373,9 +388,7 @@ class App extends Component {
 								return (
 									<div className="content" key={x.id}>
 										<div className="class">
-											{/* {x.recordType} on &nbsp;
-											{x.recordStartTime} */}
-											{x.recordType},
+											{x.recordType}, <br></br>
 											entered at {x.inputTime}
 										</div>
 									</div>
