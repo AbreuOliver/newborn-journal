@@ -10,7 +10,7 @@ import {
 	Button
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
-import "./assets/styles.css";
+
 import Firebase from "firebase";
 import config from "./config.js";
 
