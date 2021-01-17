@@ -38,7 +38,7 @@ class Clock extends React.Component {
                     alignItems="center"
                     height="75px"
                     color="#000"
-                    width="35%"
+                    width="250px"
                     backgroundColor="#fcfcfc"
                     borderRadius="20.75px"
                     margin="0 auto"
