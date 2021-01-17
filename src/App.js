@@ -6,10 +6,11 @@ import {
 	Grid,
 	HStack,
 	extendTheme,
-	SimpleGrid
+	SimpleGrid,
+	Button
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
-
+import "./assets/styles.css";
 import Firebase from "firebase";
 import config from "./config.js";
 
@@ -22,9 +23,12 @@ import diaper from "./assets/diaper.png";
 import diaperPoopy from "./assets/diaperPoopy.png";
 import diaperWet from "./assets/diaperWet.png";
 import meal from "./assets/meal.png";
+import axios from "axios";
+
 
 
 const today = moment().format("MMM DD, YYYY");
+const thisDay = moment().format("ddd, MMM DD")
 
 // function App() {
 class App extends Component {
@@ -36,36 +40,58 @@ class App extends Component {
 		this.state = {
 			data: [],
 			loading: true,
+			allDiapers: [],
+			allFeedings: [],
 		};
 	}
+
+
 
 	componentDidMount() {
 		this.getUserData();
 	};
+
+	// componentDidUpdate() {
+	// 	axios({
+	// 		method: "post",
+	// 		url: DATABASE_URL,
+	// 		newData: {
+	// 			id: "",
+	// 			inputDate: "",
+	// 			inputTime: "",
+	// 			recordDetail: "",
+	// 			recordDuration: "",
+	// 			recordStartTime: "",
+	// 			recordType: "",
+	// 		}
+	// 	})
+	// 	.then(response => this.setState({ data: response.newData })
+	// };
 
 	// FUNCTION TO GET INITIAL DATA FROM FIREBASE REALTIME DATABASE
 	getUserData = () => {
 		let ref = Firebase.database().ref("/data");
 		ref.on("value", snapshot => {
 			this.setState({
-				data: Object.values(snapshot.val()),
+				data:
+					Object.values(snapshot.val())
+					,
 				loading: false,
 			})
 		});
 	};
 
 	render() {
-		console.log("DATA:", this.state.data)
+		console.log("DATA:", typeof this.state.data, this.state.data)
 		// console.log("DIAPERS:", this.state.data.filter(x => x.recordType.includes("Diaper")))
 		console.log(today)
-		console.log("TODAY DIAPERS:", this.state.data.filter(x => x.recordType.includes("Diaper")).filter(x => x.recordStartTime.includes(today)))
-		console.log("OBJECT",
-						// this.state.data
-						// 	.filter(x => x.recordType.includes("Diaper"))
-						// 	.filter(x => x.recordStartTime.includes(today))
-						// 	.slice(-1)[0]
-						this.state.data[this.state.data.length-1]
-						// [Object.recordType]
+		console.log("TODAY DIAPERS:",
+			this.state.data.filter(x => x.recordType.includes("Diaper")).filter(x => x.recordStartTime.includes(today))
+			)
+		let lastEntry = this.state.data[this.state.data.length-1];
+		// let objectLastEntry = Object.create(lastEntry);
+		console.log("Last Entry:",
+						typeof lastEntry, lastEntry
 		)
 		return (
 			<ChakraProvider theme={extendTheme({
@@ -75,8 +101,15 @@ class App extends Component {
 			})}>
 			<Box textAlign="center" fontSize="xl">
 				<Grid minH="100vh" >
-				<ColorModeSwitcher justifySelf="flex-end" />
-				<Text fontWeight="900" fontSize="5xl" >Baby Journal</Text>
+				<HStack marginTop="25px" marginBottom="15px" marginLeft="25px" marginRight="35px" justifyContent="space-between">
+					{/* <Text>Color Mode</Text> */}
+					<ColorModeSwitcher justifySelf="flex-end" />
+					<Button>Add New Entry</Button>
+				</HStack>
+				{/* <HStack>
+
+				</HStack> */}
+				<Text fontWeight="900" fontSize="5xl" marginBottom="15px">Baby Journal</Text>
 				<SimpleGrid
 					columns={[ 1, 2]} spacingY="0px" spacingX="20px"
 					margin="0 20px"
@@ -132,7 +165,22 @@ class App extends Component {
 							</Text>
 							<img src={diaper} alt="" style={{opacity: 0.5, height: "100px"}}/>
 						</HStack>
-						<Text fontSize="md">Last Diaper Change: </Text>
+							<Text fontSize="md">Last Diaper Change:
+								{this.state.data
+									.filter(x => x.recordType.includes("iaper"))
+									.reverse()
+									.slice(0, 1)
+									.map( x => {
+									return (
+										<div className="content" key={x.id}>
+											<div className="class">
+												{x.recordStartTime} &nbsp;
+												({x.recordDetail})
+											</div>
+										</div>
+									)
+								})}
+							</Text>
 					</Box>
 					<Box
 						display="flex"
@@ -159,7 +207,24 @@ class App extends Component {
 							</Text>
 							<img src={diaperWet} alt="" style={{opacity: 0.5, height: "100px"}}/>
 						</HStack>
-						<Text fontSize="md">Last Wet Diaper: </Text>
+						<HStack width="100%">
+						<Text fontSize="md">Last Wet Diaper:
+							{this.state.data
+								.filter(x => x.recordType.includes("iaper"))
+								.filter(x => x.recordDetail.includes("et"))
+								.reverse()
+								.slice(0, 1)
+								.map( x => {
+								return (
+									<div className="content" key={x.id}>
+										<div className="class">
+											{x.recordStartTime}
+										</div>
+									</div>
+								)
+							})}
+						</Text>
+						</HStack>
 					</Box>
 					<Box
 						display="flex"
@@ -187,7 +252,22 @@ class App extends Component {
 							</Text>
 							<img src={diaperPoopy} alt="" style={{opacity: 0.5, height: "100px"}}/>
 						</HStack>
-						<Text fontSize="md">Last Poopy Diaper: </Text>
+						<Text fontSize="md">Last Poopy Diaper:
+							{this.state.data
+								.filter(x => x.recordType.includes("iaper"))
+								.filter(x => x.recordDetail.includes("oop"))
+								.reverse()
+								.slice(0, 1)
+								.map( x => {
+								return (
+									<div className="content" key={x.id}>
+										<div className="class">
+											{x.recordStartTime}
+										</div>
+									</div>
+								)
+							})}
+						</Text>
 					</Box>
 					<Box
 						display="flex"
@@ -203,7 +283,7 @@ class App extends Component {
 						borderRadius="41.5px"
 					>
 						<Text fontSize="2xl" >
-							Total Diapers Changed <br/> (Today)
+							Total Diapers Changed <br/> Today ({thisDay})
 						</Text>
 						<HStack>
 							<Text minWidth="2ch" fontSize="8xl" fontWeight="bold" >
@@ -231,7 +311,7 @@ class App extends Component {
 						borderRadius="41.5px"
 					>
 						<Text fontSize="2xl" >
-							Total Feedings <br/>(Today)
+							Total Feedings <br/>Today ({thisDay})
 						</Text>
 						<HStack>
 							<Text minWidth="2ch" fontSize="8xl" fontWeight="bold">
@@ -243,7 +323,23 @@ class App extends Component {
 							</Text>
 							<img src={meal} alt="" style={{opacity: 0.5, height: "100px"}}/>
 						</HStack>
-						<Text fontSize="md">Last Feeding: </Text>
+						<Text fontSize="md">Last Feeding:
+							{this.state.data
+								.filter(x => x.recordType.includes("eeding"))
+								.reverse()
+								.slice(0, 1)
+								.map( x => {
+								return (
+									<div className="content" key={x.id}>
+										<div className="class">
+											{x.inputTime} (
+											{x.recordDetail} side, &nbsp;
+											{x.recordDuration} minutes)
+										</div>
+									</div>
+								)
+							})}
+						</Text>
 					</Box>
 					<Box
 						display="flex"
@@ -269,10 +365,40 @@ class App extends Component {
 							</Text>
 							<img src={calendar} alt="" style={{opacity: 0.5, height: "100px"}}/>
 						</HStack>
-						<Text fontSize="md">Last Entry: {this.state.data.length-1[Object.recordType]}</Text>
+						<Text fontSize="md">Last Entry:
+							{this.state.data
+								.reverse()
+								.slice(0, 1)
+								.map( x => {
+								return (
+									<div className="content" key={x.id}>
+										<div className="class">
+											{/* {x.recordType} on &nbsp;
+											{x.recordStartTime} */}
+											{x.recordType},
+											entered at {x.inputTime}
+										</div>
+									</div>
+								)
+							})}
+						</Text>
 					</Box>
 				</SimpleGrid>
 				</Grid>
+				{/* {this.state.data
+					.reverse()
+					.slice(0, 1)
+					.map( x => {
+					return (
+						<div className="content" key={x.id}>
+							<div className="class">
+								{x.recordType} -
+								- {x.inputTime} -
+								- {x.recordDetail}
+							</div>
+						</div>
+					)
+				})} */}
 			</Box>
 			</ChakraProvider>
 		);
