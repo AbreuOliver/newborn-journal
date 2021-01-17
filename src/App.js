@@ -23,8 +23,9 @@ import diaper from "./assets/diaper.png";
 import diaperPoopy from "./assets/diaperPoopy.png";
 import diaperWet from "./assets/diaperWet.png";
 import meal from "./assets/meal.png";
-import axios from "axios";
+// import axios from "axios";
 
+import Clock from "./Clock";
 
 
 const today = moment().format("MMM DD, YYYY");
@@ -99,7 +100,7 @@ class App extends Component {
 				</HStack>
 				<Text fontWeight="900" fontSize="5xl" marginBottom="15px">
 					Baby Journal <br></br>
-					{time}
+					< Clock />
 				</Text>
 				<SimpleGrid
 					columns={[ 1, 2]} spacingY="0px" spacingX="20px"
