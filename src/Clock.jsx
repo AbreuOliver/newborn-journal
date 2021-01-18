@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import moment from "moment";
 import {
      Box
 } from '@chakra-ui/react';
 
 // let time =  new Date().toLocaleString();
-const time = moment().format("hh:mm A")
+// const time = moment().format("hh:mm A")
 
 class Clock extends React.Component {
      constructor(props) {

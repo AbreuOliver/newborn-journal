@@ -30,7 +30,6 @@ import Clock from "./Clock";
 
 const today = moment().format("MMM DD, YYYY");
 const thisDay = moment().format("ddd, MMM DD")
-const time = moment().format("hh:mm A")
 
 // function App() {
 class App extends Component {
@@ -67,39 +66,21 @@ class App extends Component {
 	};
 
 	render() {
-		console.log("DATA:", typeof this.state.data, this.state.data)
-		// console.log("DIAPERS:", this.state.data.filter(x => x.recordType.includes("Diaper")))
-		console.log(today)
-		console.log("TODAY DIAPERS:",
-			this.state.data.filter(x => x.recordType.includes("Diaper")).filter(x => x.recordStartTime.includes(today))
-			)
-		let lastEntry = this.state.data[this.state.data.length-1];
-		// let objectLastEntry = Object.create(lastEntry);
-		console.log("Last Entry:",
-						typeof lastEntry, lastEntry
-		)
-		// console.log("REDUCER",
-		// 		this.state.data
-		// 			.filter( x => x.recordType.includes("eeding"))
-		// 			.reduce((map, recordDuration) => ({
-		// 				...map,
-		// 				[recordDuration]: (map[recordDuration] || 0) + 1
-		// 		}), {})
-		// )
+
 		return (
 			<ChakraProvider theme={extendTheme({
 				fonts: {
 					body: " 'Work Sans', sans-serif"
 				}
 			})}>
-			<Box textAlign="center" fontSize="xl">
+			<Box textAlign="center" fontSize="xl" margin="0 auto" justifyContent="center" maxWidth="750px">
 				<Grid minH="100vh" >
 				<HStack marginTop="25px" marginBottom="15px" marginLeft="25px" marginRight="35px" justifyContent="space-between">
 					<ColorModeSwitcher justifySelf="flex-end" />
 					<Button>Add New Entry</Button>
 				</HStack>
 				<Text fontWeight="900" fontSize="5xl" marginBottom="15px">
-					Baby Journal <br></br>
+					Newborn Journal <br></br>
 					< Clock />
 				</Text>
 				<SimpleGrid
