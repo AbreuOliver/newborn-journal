@@ -32,7 +32,7 @@ import Clock from "./Clock";
 
 const today = moment().format("MMM DD, YYYY");
 const thisDay = moment().format("ddd, MMM DD")
-const daysOld = moment().diff(moment("20210108", "YYYYMMDD"), "days")
+const daysOld = moment().diff(moment("202101081015", "YYYYMMDDhhmm"), "days")
 
 // function App() {
 class App extends Component {
@@ -181,9 +181,9 @@ class App extends Component {
 							</HStack>
 							<Text fontSize="md">Avg Feedings Per Day: &nbsp;
 								{
-									this.state.data
+									Math.round(this.state.data
 									.filter(x => x.recordType.includes("feeding"))
-									.length/moment().diff(moment("20210108", "YYYYMMDD"), "days")
+									.length/moment().diff(moment("20210108", "YYYYMMDD"), "days")*10)/10
 								}
 							</Text>
 						</Box>
