@@ -23,13 +23,15 @@ import diaper from "./assets/diaper.png";
 import diaperPoopy from "./assets/diaperPoopy.png";
 import diaperWet from "./assets/diaperWet.png";
 import meal from "./assets/meal.png";
-// import axios from "axios";
+import pacifier from "./assets/pacifier.png";
+ // import axios from "axios";
 
 import Clock from "./Clock";
 
 
 const today = moment().format("MMM DD, YYYY");
 const thisDay = moment().format("ddd, MMM DD")
+const daysOld = moment().diff(moment("20210108", "YYYYMMDD"), "days")
 
 // function App() {
 class App extends Component {
@@ -96,7 +98,50 @@ class App extends Component {
 						paddingLeft="30px"
 						color="#fff"
 						height="300px"
+						backgroundColor="#f77f00"
 						backgroundColor="#303297"
+						marginBottom="20px"
+						borderRadius="41.5px"
+						paddingTop="25px"
+						paddingBottom="25px"
+					>
+						<Text fontSize="2xl" >
+							Age <br/>
+						</Text>
+						<HStack>
+							<Text minWidth="2ch" fontSize="8xl" fontWeight="bold" wordBreak="break-word">
+								{
+									// moment("20210109", "YYYYMMDD").fromNow()
+									// moment("20210108", "YYYYMMDD").diff(moment(), "days")
+									daysOld
+								}
+							</Text>
+							<img src={calendar} alt="" style={{opacity: 0.5, height: "100px"}}/>
+						</HStack>
+						<Text fontSize="md">Days
+							{/* {
+								this.state.data
+									.filter( x => x.recordType.includes("eeding"))
+									.reduce((map, recordDuration) => ({
+										...map,
+										[recordDuration]: (map[recordDuration] || 0) + 1
+									}), {})
+							} */}
+						</Text>
+					</Box>
+					{/* ========================================================================== */}
+					<Box
+						display="flex"
+						flexDirection="column"
+						justifyContent="center"
+						alignItems="flex-start"
+						textAlign="left"
+						paddingLeft="30px"
+						// color="#fff"
+						height="300px"
+						backgroundColor="#303297"
+						backgroundColor="#faa307"
+						backgroundColor="#ffba08"
 						marginBottom="20px"
 						borderRadius="41.5px"
 						paddingTop="25px"
@@ -114,15 +159,12 @@ class App extends Component {
 							</Text>
 							<img src={bottle} alt="" style={{opacity: 0.5, height: "100px"}}/>
 						</HStack>
-						<Text fontSize="md">Total Minutes: &nbsp;
-							{/* {
+						<Text fontSize="md">Avg Feedings Per Day: &nbsp;
+							{
 								this.state.data
-									.filter( x => x.recordType.includes("eeding"))
-									.reduce((map, recordDuration) => ({
-										...map,
-										[recordDuration]: (map[recordDuration] || 0) + 1
-									}), {})
-							} */}
+								.filter(x => x.recordType.includes("feeding"))
+								.length/moment().diff(moment("20210108", "YYYYMMDD"), "days")
+							}
 						</Text>
 					</Box>
 					<Box
@@ -360,7 +402,7 @@ class App extends Component {
 									.length
 								}
 							</Text>
-							<img src={calendar} alt="" style={{opacity: 0.5, height: "100px"}}/>
+							<img src={pacifier} alt="" style={{opacity: 0.5, height: "100px"}}/>
 						</HStack>
 						<Text fontSize="md">Last Entry:
 							{this.state.data
