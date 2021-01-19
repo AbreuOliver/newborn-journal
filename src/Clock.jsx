@@ -39,9 +39,10 @@ class Clock extends React.Component {
                     height="75px"
                     color="#000"
                     width="250px"
-                    backgroundColor="#fcfcfc"
+                    backgroundColor="#e9ecef"
                     borderRadius="20.75px"
-                    margin="0 auto"
+                    fontWeight="900"
+                    fontSize="5xl"
                >
                     {this.state.time}
                </Box>

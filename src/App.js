@@ -7,7 +7,8 @@ import {
 	HStack,
 	extendTheme,
 	SimpleGrid,
-	Button
+	Button,
+	VStack
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 
@@ -75,352 +76,372 @@ class App extends Component {
 					body: " 'Work Sans', sans-serif"
 				}
 			})}>
-			<Box textAlign="center" fontSize="xl" margin="0 auto" justifyContent="center" maxWidth="750px">
-				<Grid minH="100vh" >
-				<HStack marginTop="25px" marginBottom="15px" marginLeft="25px" marginRight="35px" justifyContent="space-between">
-					<ColorModeSwitcher justifySelf="flex-end" />
-					<Button>Add New Entry</Button>
-				</HStack>
-				<Text fontWeight="900" fontSize="5xl" marginBottom="15px">
-					Newborn Journal <br></br>
-					< Clock />
-				</Text>
-				<SimpleGrid
-					columns={[ 1, 2]} spacingY="0px" spacingX="20px"
-					margin="0 20px"
+			<Box
+				flexDirection="column"
+				textAlign="center"
+				fontSize="xl"
+				margin="0 auto"
+				maxWidth="750px"
+			>
+				<Grid
+					minH="100vh"
+					alignItems="flex-start"
 				>
-					<Box
+					<HStack
+						marginTop="25px"
+						marginBottom="15px"
+						marginLeft="25px"
+						marginRight="35px"
+						justifyContent="space-between"
+					>
+						<ColorModeSwitcher justifySelf="flex-end" />
+						<Button>Add New Entry</Button>
+					</HStack>
+					<VStack
+						// height="100%"
+						// border="2px solid purple"
 						display="flex"
 						flexDirection="column"
 						justifyContent="center"
-						alignItems="flex-start"
-						textAlign="left"
-						paddingLeft="30px"
-						color="#fff"
-						height="300px"
-						backgroundColor="#f77f00"
-						backgroundColor="#303297"
-						marginBottom="20px"
-						borderRadius="41.5px"
-						paddingTop="25px"
-						paddingBottom="25px"
+						alignItems="center"
 					>
-						<Text fontSize="2xl" >
-							Age <br/>
+						<Text
+							fontWeight="900"
+							fontSize="5xl"
+							marginBottom="15px"
+							lineHeight="50px"
+							maxHeight="100px"
+							// border="2px solid red"
+						>
+							Newborn Journal
 						</Text>
-						<HStack>
-							<Text minWidth="2ch" fontSize="8xl" fontWeight="bold" wordBreak="break-word">
+						< Clock />
+					</VStack>
+					<SimpleGrid
+						columns={[ 1, 2]}
+						spacingY="0px"
+						spacingX="20px"
+						margin="0 20px"
+					>
+						<Box
+							display="flex"
+							flexDirection="column"
+							justifyContent="center"
+							alignItems="flex-start"
+							textAlign="left"
+							paddingLeft="30px"
+							color="#fff"
+							height="300px"
+							backgroundColor="#303297"
+							marginBottom="20px"
+							borderRadius="41.5px"
+							paddingTop="25px"
+							paddingBottom="25px"
+						>
+							<Text fontSize="2xl" >
+								Age <br/>
+							</Text>
+							<HStack>
+								<Text minWidth="2ch" fontSize="8xl" fontWeight="bold" wordBreak="break-word">
+									{
+										daysOld
+									}
+								</Text>
+								<img src={calendar} alt="" style={{opacity: 0.5, height: "100px"}}/>
+							</HStack>
+							<Text fontSize="md">
+								Days
+							</Text>
+						</Box>
+						{/* ========================================================================== */}
+						<Box
+							display="flex"
+							flexDirection="column"
+							justifyContent="center"
+							alignItems="flex-start"
+							textAlign="left"
+							paddingLeft="30px"
+							height="300px"
+							backgroundColor="#faa307"
+							marginBottom="20px"
+							borderRadius="41.5px"
+							paddingTop="25px"
+							paddingBottom="25px"
+						>
+							<Text fontSize="2xl" >
+								Total Feedings <br/> (Lifetime)
+							</Text>
+							<HStack>
+								<Text minWidth="2ch" fontSize="8xl" fontWeight="bold" >
+									{ this.state.data
+										.filter(x => x.recordType.includes("feeding"))
+										.length
+									}
+								</Text>
+								<img src={bottle} alt="" style={{opacity: 0.5, height: "100px"}}/>
+							</HStack>
+							<Text fontSize="md">Avg Feedings Per Day: &nbsp;
 								{
-									// moment("20210109", "YYYYMMDD").fromNow()
-									// moment("20210108", "YYYYMMDD").diff(moment(), "days")
-									daysOld
-								}
-							</Text>
-							<img src={calendar} alt="" style={{opacity: 0.5, height: "100px"}}/>
-						</HStack>
-						<Text fontSize="md">Days
-							{/* {
-								this.state.data
-									.filter( x => x.recordType.includes("eeding"))
-									.reduce((map, recordDuration) => ({
-										...map,
-										[recordDuration]: (map[recordDuration] || 0) + 1
-									}), {})
-							} */}
-						</Text>
-					</Box>
-					{/* ========================================================================== */}
-					<Box
-						display="flex"
-						flexDirection="column"
-						justifyContent="center"
-						alignItems="flex-start"
-						textAlign="left"
-						paddingLeft="30px"
-						// color="#fff"
-						height="300px"
-						backgroundColor="#303297"
-						backgroundColor="#faa307"
-						backgroundColor="#ffba08"
-						marginBottom="20px"
-						borderRadius="41.5px"
-						paddingTop="25px"
-						paddingBottom="25px"
-					>
-						<Text fontSize="2xl" >
-							Total Feedings <br/> (Lifetime)
-						</Text>
-						<HStack>
-							<Text minWidth="2ch" fontSize="8xl" fontWeight="bold" >
-								{ this.state.data
+									this.state.data
 									.filter(x => x.recordType.includes("feeding"))
-									.length
+									.length/moment().diff(moment("20210108", "YYYYMMDD"), "days")
 								}
 							</Text>
-							<img src={bottle} alt="" style={{opacity: 0.5, height: "100px"}}/>
-						</HStack>
-						<Text fontSize="md">Avg Feedings Per Day: &nbsp;
-							{
-								this.state.data
-								.filter(x => x.recordType.includes("feeding"))
-								.length/moment().diff(moment("20210108", "YYYYMMDD"), "days")
-							}
-						</Text>
-					</Box>
-					<Box
-						display="flex"
-						flexDirection="column"
-						justifyContent="center"
-						alignItems="flex-start"
-						textAlign="left"
-						paddingLeft="30px"
-						height="300px"
-						backgroundColor="#f95b58"
-						marginBottom="20px"
-						borderRadius="41.5px"
-						paddingTop="25px"
-						paddingBottom="25px"
-					>
-						<Text fontSize="2xl" >
-							Total Diapers Changed <br/> (Lifetime)
-						</Text>
-						<HStack>
-							<Text minWidth="2ch"  fontSize="8xl" fontWeight="bold" >
-								{ this.state.data
-									.filter(x => x.recordType.includes("iaper"))
-									.length
-								}
+						</Box>
+						<Box
+							display="flex"
+							flexDirection="column"
+							justifyContent="center"
+							alignItems="flex-start"
+							textAlign="left"
+							paddingLeft="30px"
+							height="300px"
+							backgroundColor="#f95b58"
+							marginBottom="20px"
+							borderRadius="41.5px"
+							paddingTop="25px"
+							paddingBottom="25px"
+						>
+							<Text fontSize="2xl" >
+								Total Diapers Changed <br/> (Lifetime)
 							</Text>
-							<img src={diaper} alt="" style={{opacity: 0.5, height: "100px"}}/>
-						</HStack>
-							<Text fontSize="md">Last Diaper Change:
+							<HStack>
+								<Text minWidth="2ch"  fontSize="8xl" fontWeight="bold" >
+									{ this.state.data
+										.filter(x => x.recordType.includes("iaper"))
+										.length
+									}
+								</Text>
+								<img src={diaper} alt="" style={{opacity: 0.5, height: "100px"}}/>
+							</HStack>
+								<Text fontSize="md">Last Diaper Change:
+									{this.state.data
+										.filter(x => x.recordType.includes("iaper"))
+										.reverse()
+										.slice(0, 1)
+										.map( x => {
+										return (
+											<div className="content" key={x.id}>
+												<div className="class">
+													{x.recordStartTime} &nbsp;
+													({x.recordDetail})
+												</div>
+											</div>
+										)
+									})}
+								</Text>
+						</Box>
+						<Box
+							display="flex"
+							flexDirection="column"
+							justifyContent="center"
+							alignItems="flex-start"
+							textAlign="left"
+							paddingLeft="30px"
+							height="300px"
+							backgroundColor="#2b79ff"
+							marginBottom="20px"
+							borderRadius="41.5px"
+							paddingTop="25px"
+							paddingBottom="25px"
+						>
+							<Text fontSize="2xl" >
+								Total Diapers with<br/>Pee (Lifetime)
+							</Text>
+							<HStack>
+								<Text minWidth="2ch" fontSize="8xl" fontWeight="bold">
+									{ this.state.data
+										.filter(x => x.recordType.includes("iaper"))
+										.filter(x => x.recordDetail.includes("et"))
+										.length
+									}
+								</Text>
+								<img src={diaperWet} alt="" style={{opacity: 0.5, height: "100px"}}/>
+							</HStack>
+							<HStack width="100%">
+							<Text fontSize="md">Last Wet Diaper:
 								{this.state.data
 									.filter(x => x.recordType.includes("iaper"))
+									.filter(x => x.recordDetail.includes("et"))
 									.reverse()
 									.slice(0, 1)
 									.map( x => {
 									return (
 										<div className="content" key={x.id}>
 											<div className="class">
-												{x.recordStartTime} &nbsp;
-												({x.recordDetail})
+												{x.recordStartTime}
 											</div>
 										</div>
 									)
 								})}
 							</Text>
-					</Box>
-					<Box
-						display="flex"
-						flexDirection="column"
-						justifyContent="center"
-						alignItems="flex-start"
-						textAlign="left"
-						paddingLeft="30px"
-						height="300px"
-						backgroundColor="#2b79ff"
-						marginBottom="20px"
-						borderRadius="41.5px"
-						paddingTop="25px"
-						paddingBottom="25px"
-					>
-						<Text fontSize="2xl" >
-							Total Diapers with<br/>Pee (Lifetime)
-						</Text>
-						<HStack>
-							<Text minWidth="2ch" fontSize="8xl" fontWeight="bold">
-								{ this.state.data
-									.filter(x => x.recordType.includes("iaper"))
-									.filter(x => x.recordDetail.includes("et"))
-									.length
-								}
+							</HStack>
+						</Box>
+						<Box
+							display="flex"
+							flexDirection="column"
+							justifyContent="center"
+							alignItems="flex-start"
+							textAlign="left"
+							paddingLeft="30px"
+							color="#fff"
+							height="300px"
+							backgroundColor="#29272a"
+							marginBottom="20px"
+							borderRadius="41.5px"
+							paddingTop="25px"
+							paddingBottom="25px"
+						>
+							<Text fontSize="2xl" >
+								Total Diapers with <br/>Poopy (Lifetime)
 							</Text>
-							<img src={diaperWet} alt="" style={{opacity: 0.5, height: "100px"}}/>
-						</HStack>
-						<HStack width="100%">
-						<Text fontSize="md">Last Wet Diaper:
-							{this.state.data
-								.filter(x => x.recordType.includes("iaper"))
-								.filter(x => x.recordDetail.includes("et"))
-								.reverse()
-								.slice(0, 1)
-								.map( x => {
-								return (
-									<div className="content" key={x.id}>
-										<div className="class">
-											{x.recordStartTime}
-										</div>
-									</div>
-								)
-							})}
-						</Text>
-						</HStack>
-					</Box>
-					<Box
-						display="flex"
-						flexDirection="column"
-						justifyContent="center"
-						alignItems="flex-start"
-						textAlign="left"
-						paddingLeft="30px"
-						color="#fff"
-						height="300px"
-						backgroundColor="#29272a"
-						marginBottom="20px"
-						borderRadius="41.5px"
-						paddingTop="25px"
-						paddingBottom="25px"
-					>
-						<Text fontSize="2xl" >
-							Total Diapers with <br/>Poopy (Lifetime)
-						</Text>
-						<HStack>
-							<Text minWidth="2ch" fontSize="8xl" fontWeight="bold">
-								{ this.state.data
+							<HStack>
+								<Text minWidth="2ch" fontSize="8xl" fontWeight="bold">
+									{ this.state.data
+										.filter(x => x.recordType.includes("iaper"))
+										.filter(x => x.recordDetail.includes("oop"))
+										.length
+									}
+								</Text>
+								<img src={diaperPoopy} alt="" style={{opacity: 0.5, height: "100px"}}/>
+							</HStack>
+							<Text fontSize="md">Last Poopy Diaper:
+								{this.state.data
 									.filter(x => x.recordType.includes("iaper"))
 									.filter(x => x.recordDetail.includes("oop"))
-									.length
-								}
-							</Text>
-							<img src={diaperPoopy} alt="" style={{opacity: 0.5, height: "100px"}}/>
-						</HStack>
-						<Text fontSize="md">Last Poopy Diaper:
-							{this.state.data
-								.filter(x => x.recordType.includes("iaper"))
-								.filter(x => x.recordDetail.includes("oop"))
-								.reverse()
-								.slice(0, 1)
-								.map( x => {
-								return (
-									<div className="content" key={x.id}>
-										<div className="class">
-											{x.recordStartTime}
+									.reverse()
+									.slice(0, 1)
+									.map( x => {
+									return (
+										<div className="content" key={x.id}>
+											<div className="class">
+												{x.recordStartTime}
+											</div>
 										</div>
-									</div>
-								)
-							})}
-						</Text>
-					</Box>
-					<Box
-						display="flex"
-						flexDirection="column"
-						justifyContent="center"
-						alignItems="flex-start"
-						textAlign="left"
-						paddingLeft="30px"
-						color="#fff"
-						height="300px"
-						backgroundColor="#7666b2"
-						marginBottom="20px"
-						borderRadius="41.5px"
-						paddingTop="25px"
-						paddingBottom="25px"
-					>
-						<Text fontSize="2xl" >
-							Total Diapers Changed <br/> Today ({thisDay})
-						</Text>
-						<HStack>
-							<Text minWidth="2ch" fontSize="8xl" fontWeight="bold" >
-							{this.state.data
-								.filter(x => x.recordType.includes("iaper"))
-								.filter(x => x.recordStartTime.includes(today))
-								.length
-							}
+									)
+								})}
 							</Text>
-							<img src={babyHappy} alt="" style={{opacity: 0.5, height: "100px"}}/>
-						</HStack>
-						<Text fontSize="md">Most Active Day: </Text>
-					</Box>
-					<Box
-						display="flex"
-						flexDirection="column"
-						justifyContent="center"
-						alignItems="flex-start"
-						textAlign="left"
-						paddingLeft="30px"
-						color="#000"
-						height="300px"
-						backgroundColor="#ffd500"
-						marginBottom="20px"
-						borderRadius="41.5px"
-						paddingTop="25px"
-						paddingBottom="25px"
-					>
-						<Text fontSize="2xl">
-							Total Feedings <br/>Today ({thisDay})
-						</Text>
-						<HStack height="100px">
-							<Text minWidth="2ch" fontSize="8xl" fontWeight="bold">
-								{ this.state.data
-									.filter(x => x.recordType.includes("eeding"))
+						</Box>
+						<Box
+							display="flex"
+							flexDirection="column"
+							justifyContent="center"
+							alignItems="flex-start"
+							textAlign="left"
+							paddingLeft="30px"
+							color="#fff"
+							height="300px"
+							backgroundColor="#7666b2"
+							marginBottom="20px"
+							borderRadius="41.5px"
+							paddingTop="25px"
+							paddingBottom="25px"
+						>
+							<Text fontSize="2xl" >
+								Total Diapers Changed <br/> Today ({thisDay})
+							</Text>
+							<HStack>
+								<Text minWidth="2ch" fontSize="8xl" fontWeight="bold" >
+								{this.state.data
+									.filter(x => x.recordType.includes("iaper"))
 									.filter(x => x.recordStartTime.includes(today))
 									.length
 								}
+								</Text>
+								<img src={babyHappy} alt="" style={{opacity: 0.5, height: "100px"}}/>
+							</HStack>
+							<Text fontSize="md">Most Active Day: </Text>
+						</Box>
+						<Box
+							display="flex"
+							flexDirection="column"
+							justifyContent="center"
+							alignItems="flex-start"
+							textAlign="left"
+							paddingLeft="30px"
+							color="#000"
+							height="300px"
+							backgroundColor="#ffd500"
+							marginBottom="20px"
+							borderRadius="41.5px"
+							paddingTop="25px"
+							paddingBottom="25px"
+						>
+							<Text fontSize="2xl">
+								Total Feedings <br/>Today ({thisDay})
 							</Text>
-							<img src={meal} alt="" style={{opacity: 0.5, height: "100px"}}/>
-						</HStack>
-						<Text fontSize="md">Last Feeding:
-							{this.state.data
-								.filter(x => x.recordType.includes("eeding"))
-								.reverse()
-								.slice(0, 1)
-								.map( x => {
-								return (
-									<div className="content" key={x.id}>
-										<div className="class">
-											{x.recordStartTime} <br></br>
-											(
-											{x.recordDetail} side, &nbsp;
-											{x.recordDuration} minutes)
+							<HStack height="100px">
+								<Text minWidth="2ch" fontSize="8xl" fontWeight="bold">
+									{ this.state.data
+										.filter(x => x.recordType.includes("eeding"))
+										.filter(x => x.recordStartTime.includes(today))
+										.length
+									}
+								</Text>
+								<img src={meal} alt="" style={{opacity: 0.5, height: "100px"}}/>
+							</HStack>
+							<Text fontSize="md">Last Feeding:
+								{this.state.data
+									.filter(x => x.recordType.includes("eeding"))
+									.reverse()
+									.slice(0, 1)
+									.map( x => {
+									return (
+										<div className="content" key={x.id}>
+											<div className="class">
+												{x.recordStartTime} <br></br>
+												(
+												{x.recordDetail} side, &nbsp;
+												{x.recordDuration} minutes)
+											</div>
 										</div>
-									</div>
-								)
-							})}
-						</Text>
-					</Box>
-					<Box
-						display="flex"
-						flexDirection="column"
-						justifyContent="center"
-						alignItems="flex-start"
-						textAlign="left"
-						paddingLeft="30px"
-						color="#000"
-						height="300px"
-						backgroundColor="#8cffa0"
-						marginBottom="20px"
-						borderRadius="41.5px"
-						paddingTop="25px"
-						paddingBottom="25px"
-					>
-						<Text fontSize="2xl" >
-							Total Entries <br/>(Lifetime)
-						</Text>
-						<HStack height="100px">
-							<Text minWidth="2ch" fontSize="8xl" fontWeight="bold">
-								{ this.state.data
-									.length
-								}
+									)
+								})}
 							</Text>
-							<img src={pacifier} alt="" style={{opacity: 0.5, height: "100px"}}/>
-						</HStack>
-						<Text fontSize="md">Last Entry:
-							{this.state.data
-								.reverse()
-								.slice(0, 1)
-								.map( x => {
-								return (
-									<div className="content" key={x.id}>
-										<div className="class">
-											{x.recordType}, <br></br>
-											entered at {x.inputTime}
+						</Box>
+						<Box
+							display="flex"
+							flexDirection="column"
+							justifyContent="center"
+							alignItems="flex-start"
+							textAlign="left"
+							paddingLeft="30px"
+							color="#000"
+							height="300px"
+							backgroundColor="#8cffa0"
+							marginBottom="20px"
+							borderRadius="41.5px"
+							paddingTop="25px"
+							paddingBottom="25px"
+						>
+							<Text fontSize="2xl" >
+								Total Entries <br/>(Lifetime)
+							</Text>
+							<HStack height="100px">
+								<Text minWidth="2ch" fontSize="8xl" fontWeight="bold">
+									{ this.state.data
+										.length
+									}
+								</Text>
+								<img src={pacifier} alt="" style={{opacity: 0.5, height: "100px"}}/>
+							</HStack>
+							<Text fontSize="md">Last Entry:
+								{this.state.data
+									.reverse()
+									.slice(0, 1)
+									.map( x => {
+									return (
+										<div className="content" key={x.id}>
+											<div className="class">
+												{x.recordType}, <br></br>
+												entered at {x.inputTime}
+											</div>
 										</div>
-									</div>
-								)
-							})}
-						</Text>
-					</Box>
-				</SimpleGrid>
+									)
+								})}
+							</Text>
+						</Box>
+					</SimpleGrid>
 				</Grid>
 				{/* {this.state.data
 					.reverse()
