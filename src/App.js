@@ -100,10 +100,9 @@ class App extends Component {
 					<VStack
 						// height="100%"
 						// border="2px solid purple"
-						display="flex"
-						flexDirection="column"
 						justifyContent="center"
 						alignItems="center"
+						marginBottom="25px"
 					>
 						<Text
 							fontWeight="900"
